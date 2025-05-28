@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using PlatformService.Data;
+using PlatformService.SyncDataServices.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,10 +15,14 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDataba
 
 builder.Services.AddScoped<IPlatformRepo, PlatformRepo>();
 
+builder.Services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "PlatformService", Version = "v1" });
 });
+
+Console.WriteLine($"-> CommandService endpoint {builder.Configuration["CommandService"]}");
 
 var app = builder.Build();
 
