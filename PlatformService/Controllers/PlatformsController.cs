@@ -58,7 +58,7 @@ namespace PlatformService.Controllers
 
             try
             {
-                await _commandDataClient.SendPllatformToCommand(platformReadDto);
+                await _commandDataClient.SendPlatformToCommand(platformReadDto);
             }
             catch (Exception ex)
             {

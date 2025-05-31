@@ -17,7 +17,7 @@ namespace PlatformService.SyncDataServices.Http
             _configuration = configuration;
         }
                 
-        public async Task SendPllatformToCommand(PlatformReadDto platformReadDto)
+        public async Task SendPlatformToCommand(PlatformReadDto platformReadDto)
         {
             var httpContent = new StringContent(
                 JsonSerializer.Serialize(platformReadDto),
