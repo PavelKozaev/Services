@@ -1,3 +1,5 @@
+using CommandsService.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,22 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
+//if (builder.Environment.IsProduction())
+//{
+//    Console.WriteLine("--> Using SqlServer Db");
+//    builder.Services.AddDbContext<AppDbContext>(opt =>
+//        opt.UseSqlServer(builder.Configuration.GetConnectionString("PlatformsConn")));
+//}
+//else
+//{
+    Console.WriteLine("--> Using InMem Db");
+    builder.Services.AddDbContext<AppDbContext>(opt =>
+        opt.UseInMemoryDatabase("InMem"));
+//}
+
+builder.Services.AddScoped<ICommandRepo, CommandRepo>();
 
 builder.Services.AddSwaggerGen(c =>
 {
