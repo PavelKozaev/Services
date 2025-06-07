@@ -1,4 +1,5 @@
 using CommandsService.Data;
+using CommandsService.EventProcessing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -25,6 +26,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //}
 
 builder.Services.AddScoped<ICommandRepo, CommandRepo>();
+
+builder.Services.AddSingleton<IEventProcessor, EventProcessor>();
 
 builder.Services.AddSwaggerGen(c =>
 {
