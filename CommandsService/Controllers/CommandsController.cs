@@ -3,7 +3,6 @@ using CommandsService.Data;
 using CommandsService.Dtos;
 using CommandsService.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.Design;
 
 namespace CommandsService.Controllers
 {
@@ -47,7 +46,7 @@ namespace CommandsService.Controllers
 
             var command = _repository.GetCommand(platformId, commandId);
 
-            if (command is null)
+            if (command == null)
             {
                 return NotFound();
             }
@@ -72,8 +71,8 @@ namespace CommandsService.Controllers
 
             var commandReadDto = _mapper.Map<CommandReadDto>(command);
 
-            return CreatedAtRoute(nameof(GetCommandForPlatform), 
-                new { platformId = platformId, commandId = commandReadDto.Id, commandReadDto});
+            return CreatedAtRoute(nameof(GetCommandForPlatform),
+                new { platformId = platformId, commandId = commandReadDto.Id }, commandReadDto);
         }
     }
 }
